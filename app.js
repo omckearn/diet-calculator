@@ -582,6 +582,25 @@ const DATA = [
   }
 ];
 
+const EXPLANATIONS = {
+  1: "Non-starchy veggies add fiber and micronutrients with a lighter footprint.",
+  2: "Plant proteins that boost nutrition with comparatively low impact.",
+  3: "Fruit adds vitamins and fiber, especially when unsweetened.",
+  4: "Healthy fats and protein, but portion size still matters.",
+  5: "Red meats tend to score lower on health and environment.",
+  6: "Processed meats are linked with higher health risks and higher impact.",
+  7: "Seafood can be beneficial, with impact varying by frequency.",
+  8: "Lower-fat dairy tends to score higher on health.",
+  9: "Full-fat dairy is higher in saturated fat and calories.",
+  10: "Lean animal proteins with moderate health and footprint scores.",
+  11: "Restaurant meals often add sodium, fat, and larger portions.",
+  12: "Whole grains generally score higher for health and satiety.",
+  13: "Refined grains score lower than whole grains.",
+  14: "Sugary drinks add calories without much nutrition.",
+  15: "Desserts are treats that score lower for routine intake.",
+  16: "Alcohol adds calories and can lower overall scores."
+};
+
 const OPTIONS_ORDER = [
   "Less than once per week",
   "Once per week",
@@ -658,9 +677,16 @@ function render() {
     const top = document.createElement("div");
     top.className = "qtop";
 
+    const textBlock = document.createElement("div");
+    textBlock.className = "qtext";
+
     const title = document.createElement("h3");
     title.className = "qtitle";
     title.textContent = `Q${q.id}. ${q.title}`;
+
+    const desc = document.createElement("p");
+    desc.className = "qdesc";
+    desc.textContent = EXPLANATIONS[q.id] || "";
 
     const scores = document.createElement("div");
     scores.className = "qscores";
@@ -669,7 +695,7 @@ function render() {
     if (!key) {
       const b = document.createElement("div");
       b.className = "badge badge--muted";
-      b.textContent = "Select a frequency to score";
+      b.textContent = "No selection";
       scores.appendChild(b);
     } else {
       const opt = getOption(q.id, key);
@@ -685,7 +711,9 @@ function render() {
       scores.appendChild(b2);
     }
 
-    top.appendChild(title);
+    textBlock.appendChild(title);
+    textBlock.appendChild(desc);
+    top.appendChild(textBlock);
     top.appendChild(scores);
 
     const choices = document.createElement("div");
@@ -770,7 +798,7 @@ function renderAdviceIfComplete() {
   const box = document.getElementById("adviceContent");
 
   if (totals.answered !== Q_COUNT) {
-    intro.textContent = "Answer all 16 questions to see your advice.";
+    if (intro) intro.textContent = "";
     box.hidden = true;
     box.innerHTML = "";
     return;
@@ -852,7 +880,7 @@ function renderAdviceIfComplete() {
     return healthyRules[q.id] ? healthyRules[q.id](h) : false;
   });
 
-  intro.textContent = "Here is your feedback based on your Health scores.";
+  if (intro) intro.textContent = "Here is your feedback based on your Health scores.";
   box.hidden = false;
 
   const html = [];

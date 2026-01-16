@@ -9,8 +9,11 @@
 <body>
   <main class="container">
     <header class="header">
-      <h1>Rate Your Diet for Health &amp; the Environment</h1>
-      <p class="subhead">Pick how often you consume each category. Scores update as you go.</p>
+      <div class="header__top">
+        <h1>Rate Your Diet for Health &amp; the Environment</h1>
+        <a class="btn btn--outline" href="details.html">Details about the Calculator</a>
+      </div>
+      <p class="tagline">A pinball-style snapshot of your plate.</p>
     </header>
 
     <section class="scoreboard" aria-label="Scoreboard">
@@ -48,7 +51,6 @@
           <div class="band__marker" id="envMarker" aria-hidden="true"></div>
         </div>
       </div>
-      <p class="legend__note"></p>
     </section>
 
     <section class="questions" aria-label="Diet questions">
@@ -57,35 +59,10 @@
 
     <section class="advice" aria-label="Personalized advice">
       <h2>Personalized dietary advice</h2>
-      <p class="muted" id="adviceIntro">Answer all 16 questions to see your advice.</p>
       <div id="adviceContent" class="advice__content" hidden></div>
     </section>
 
-    <section class="legend" aria-label="Overall score legend (bottom)">
-      <div class="legend__row">
-        <div class="legend__title">Health total</div>
-        <div class="band" role="img" aria-label="Health total scale">
-          <div class="band__seg band__seg--red">Low</div>
-          <div class="band__seg band__seg--yellow">Medium</div>
-          <div class="band__seg band__seg--green">High</div>
-          <div class="band__marker" id="healthMarkerBottom" aria-hidden="true"></div>
-        </div>
-      </div>
-      <div class="legend__row">
-        <div class="legend__title">Environment total</div>
-        <div class="band" role="img" aria-label="Environment total scale">
-          <div class="band__seg band__seg--red">Low</div>
-          <div class="band__seg band__seg--yellow">Medium</div>
-          <div class="band__seg band__seg--green">High</div>
-          <div class="band__marker" id="envMarkerBottom" aria-hidden="true"></div>
-        </div>
-      </div>
-      <p class="legend__note"></p>
-    </section>
-
-    <footer class="footer">
-      <p class="muted">Scoring is lifted directly from the spreadsheet export.</p>
-    </footer>
+    <footer class="footer"></footer>
   </main>
 
   <script src="app.js"></script>
