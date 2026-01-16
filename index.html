@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rate Your Diet for Health &amp; the Environment</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div class="header__top">
+        <h1>Rate Your Diet for Health &amp; the Environment</h1>
+        <a class="btn btn--outline" href="details.html">Details about the Calculator</a>
+      </div>
+      <p class="tagline">A pinball-style snapshot of your plate.</p>
+    </header>
+
+    <section class="scoreboard" aria-label="Scoreboard">
+      <div class="scorecard">
+        <div class="scorecard__label">Total Health Score</div>
+        <div class="scorecard__value" id="totalHealth">0</div>
+        <div class="scorecard__max">out of <span id="maxTotalHealth">32</span></div>
+      </div>
+      <div class="scorecard">
+        <div class="scorecard__label">Total Environment Score</div>
+        <div class="scorecard__value" id="totalEnv">0.0</div>
+        <div class="scorecard__max">out of <span id="maxTotalEnv">32</span></div>
+      </div>
+      <div class="progressmeta">
+        <span id="answeredCount">0</span>/<span id="questionCount">16</span> answered
+      </div>
+    </section>
+
+    <section class="legend" aria-label="Overall score legend">
+      <div class="legend__row">
+        <div class="legend__title">Health total</div>
+        <div class="band" role="img" aria-label="Health total scale">
+          <div class="band__seg band__seg--red">Low</div>
+          <div class="band__seg band__seg--yellow">Medium</div>
+          <div class="band__seg band__seg--green">High</div>
+          <div class="band__marker" id="healthMarker" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="legend__row">
+        <div class="legend__title">Environment total</div>
+        <div class="band" role="img" aria-label="Environment total scale">
+          <div class="band__seg band__seg--red">Low</div>
+          <div class="band__seg band__seg--yellow">Medium</div>
+          <div class="band__seg band__seg--green">High</div>
+          <div class="band__marker" id="envMarker" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="questions" aria-label="Diet questions">
+      <div id="questionsRoot"></div>
+    </section>
+
+    <section class="advice" aria-label="Personalized advice">
+      <h2>Personalized dietary advice</h2>
+      <div id="adviceContent" class="advice__content" hidden></div>
+    </section>
+
+    <footer class="footer"></footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
