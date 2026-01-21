@@ -16,44 +16,120 @@
       <p class="tagline">How the scores are assembled, in plain English.</p>
     </header>
 
+    <section class="details-card details-card--summary">
+      <h2>Quick summary</h2>
+      <ul>
+        <li>The Health Score reflects how closely your habits match recommended dietary patterns.</li>
+        <li>The Environment Score reflects the estimated footprint of those foods.</li>
+        <li>Several important factors (like sodium, food waste, and animal welfare) are not included.</li>
+      </ul>
+    </section>
+
     <section class="details-card">
-      <h2>What the scores mean</h2>
+      <h2>The Scoring Algorithm (and Items Not Included)</h2>
+      <h3>What the Health Score Measures</h3>
       <p>
-        Each food category has two numbers: a Health score and an Environment score.
-        The Health score uses a 0–2 scale, while the Environment score reflects impact on a 0–2 scale
-        with one decimal. Your totals are the sum across all 16 categories.
+        The Diet-Health-Environment Calculator provides a good gauge of a person’s diet’s impact
+        on their health and the environment. It is adapted from a 13-item Rapid Prime Diet Quality
+        Score Screener (rPDQS) developed by Selma Kronsteiner-Gicevic and her colleagues and
+        validated against the Healthy Eating Index.
       </p>
-    </section>
-
-    <section class="details-grid">
-      <article class="details-card">
-        <h3>Health score</h3>
-        <p>
-          Higher points reflect foods linked with better dietary outcomes.
-          The stoplight colors map to low (red), medium (yellow), and high (green) scores.
-        </p>
-      </article>
-      <article class="details-card">
-        <h3>Environment score</h3>
-        <p>
-          Higher points indicate a lower environmental footprint. Small differences are shown with
-          a single decimal so the scale stays sensitive to food choices.
-        </p>
-      </article>
-      <article class="details-card">
-        <h3>Why frequency matters</h3>
-        <p>
-          The frequency options are ordered from least to most, so your selection determines how
-          many points that category contributes to each total.
-        </p>
-      </article>
-    </section>
-
-    <section class="details-card details-card--highlight">
-      <h2>Data sources</h2>
       <p>
-        The calculator mirrors the original spreadsheet scoring rules. This page keeps the description
-        short on purpose so the experience stays playful and easy to scan.
+        Our calculator is based on only 16 dietary habits and cannot cover every detail about every
+        individual’s diet. Restaurant meals are particularly challenging because they vary from
+        healthy salads to voluminous, fatty, salty meals with few vegetables or fruit at table-service
+        eateries. Restaurant scores are based on estimated saturated-fat content. Also tough to
+        evaluate are stews, casseroles, and other mixed dishes in which the ingredients could vary
+        tremendously; the algorithm assigns the typical ingredients and nutrients to the various
+        food categories. For restaurant meals and mixed dishes, users of the algorithm could adjust
+        the numbers of servings they consume based on their estimates of the amounts of key
+        ingredients.
+      </p>
+      <p>
+        Low-fat or fat-free dairy foods are lower in saturated fat and healthier for consumers than
+        their full-fat versions. However, low-fat yogurt and cheese are fermented and may be less
+        beneficial than once thought. Still, milkfat adds calories unneeded by most people and does
+        not provide any benefits. The health benefit of low-fat dairy products to society at large is
+        minimal because the removed milkfat will be consumed in the form of butter, ice cream, or
+        other foods.
+      </p>
+      <h3>What the Environment Score Measures</h3>
+      <p>
+        Environmental scores, not included in the rPDQS, are based on per-kilogram amounts of
+        food and the associated amounts of greenhouse gas emissions (35%), stress-weighted
+        water use (25%), eutrophying emissions (15%), land use (15%), and acidifying emissions
+        (10%). The best way to get a good Environment score is to eat less (or no!) food, but doing
+        that could mean eating fewer healthy foods, thereby holding down the Health score.
+      </p>
+      <h3>What This Calculator Does Not Include</h3>
+      <p>
+        The following factors are not included in the scoring algorithm and deserve a few words of
+        explanation.
+      </p>
+      <ul>
+        <li>
+          Salt/sodium: Diets high in sodium cause as many as 100,000 premature deaths
+          annually, but because salt is used so widely throughout the food supply, with
+          amounts varying from brand to brand and with people adding salt to some meals, it
+          is impossible to estimate accurately how much sodium people are consuming. Two
+          major sources of sodium: bread, pizza crust, tortillas (because most people eat many
+          grain products in a day) and table-service restaurant meals (because portions are
+          often huge, highly salted, and contain cheese, processed meat, and dressings and
+          sauces that are high in sodium).
+        </li>
+        <li>
+          Organic foods: Organically produced vegetables, meat, eggs, and other foods are a
+          great benefit to farmers and farm workers because they minimize exposure to
+          synthetic pesticides and antibiotics. Consumers may benefit from lower residues of
+          pesticides in their food and fewer antibiotic-resistant bacteria. The environmental
+          impacts are mixed. Insecticides may kill beneficial insects and reduce the food
+          supply available for birds and other animals, and herbicides may reduce weed
+          populations that otherwise provide food and shelter for insects, birds, and small
+          mammals. However, crop yields are generally lower for organic crops, meaning that
+          it takes more land to produce the same amount of food (including organic meat,
+          which typically comes from animals that consumed organically raised crops).
+        </li>
+        <li>
+          Animal welfare: Pigs raised outside of cages, broiler chickens not confined to huge
+          windowless warehouses, layer hens not crammed into tiny cages, and cattle raised
+          on pastureland for their entire lives instead of being “finished” at feedlots provides
+          major benefits to the animals. Note, though, that grass-fed cattle take longer to
+          mature and therefore emit larger quantities of methane, a potent greenhouse gas,
+          than feedlot cattle. Also, because of their greater need for pastureland, grass-fed
+          (and regeneratively raised) cattle—especially with their higher cost, tougher
+          meat—will inevitably comprise only a small fraction of the beef Americans
+          consume.
+        </li>
+        <li>
+          Food waste: Roughly one-third of all food produced is wasted. That includes crops
+          left on farms; spoilage at packinghouses, factories, and supermarkets; and uneaten
+          food in homes. And that includes perfectly healthful and edible produce that is
+          discarded because of blemishes and packaged foods that passed their “best by”
+          dates even though they were still perfectly edible. Reducing food waste could reduce
+          the amount of food that needs to be produced and the food and packaging dumped
+          in landfills. Everyone could help reduce food waste.
+        </li>
+        <li>
+          Genetically modified (GE) ingredients: Countless packaged foods contain
+          ingredients derived from wheat, corn, and soy crops grown from seeds that were
+          modified to resist the effects of herbicides or to contain a harmless insecticide.
+          Hawaiian papayas have been modified to resist a crop-killing virus, and tiny
+          percentages of potatoes and apples have been modified to resist browning when
+          sliced. The oils, starches, and other common ingredients made from GE crops have
+          been so purified that they do not contain any modified genetic material. There is no
+          evidence that foods containing ingredients from GE crops have harmed anyone’s
+          health though some evidence indicates that glyphosate, the key ingredient in
+          Roundup herbicide used on GE corn, soybeans, canola, and sugar beets, is
+          carcinogenic. GE crops have both positive (e.g., reduced use of toxic pesticides) and
+          negative (e.g., herbicide-resistant weeds and insecticide-resistant insects)
+          environmental consequences.
+        </li>
+      </ul>
+      <p>
+        On all those issues, people can “vote” their preferences when they shop. People can also
+        support local, state, and federal legislation and vote for representatives that support
+        reducing pesticide/fertilizer use, improving animal welfare, improving food labeling, and
+        other measures.
       </p>
     </section>
   </main>

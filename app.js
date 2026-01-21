@@ -583,23 +583,24 @@ const DATA = [
 ];
 
 const EXPLANATIONS = {
-  1: "Non-starchy veggies add fiber and micronutrients with a lighter footprint.",
-  2: "Plant proteins that boost nutrition with comparatively low impact.",
-  3: "Fruit adds vitamins and fiber, especially when unsweetened.",
-  4: "Healthy fats and protein, but portion size still matters.",
-  5: "Red meats tend to score lower on health and environment.",
-  6: "Processed meats are linked with higher health risks and higher impact.",
-  7: "Seafood can be beneficial, with impact varying by frequency.",
-  8: "Lower-fat dairy tends to score higher on health.",
-  9: "Full-fat dairy is higher in saturated fat and calories.",
-  10: "Lean animal proteins with moderate health and footprint scores.",
-  11: "Restaurant meals often add sodium, fat, and larger portions.",
-  12: "Whole grains generally score higher for health and satiety.",
-  13: "Refined grains score lower than whole grains.",
-  14: "Sugary drinks add calories without much nutrition.",
-  15: "Desserts are treats that score lower for routine intake.",
-  16: "Alcohol adds calories and can lower overall scores."
+  1: "Great, low-calorie source of vitamins, minerals, phytonutrients, and dietary fiber, with low environmental impact. Higher consumption is associated with lower rates of chronic disease. Eat plenty of veggies!",
+  2: "Great sources of protein, micronutrients, and dietary fiber. Eating legumes wards off chronic diseases, and producing legumes supports soil health and has minimal adverse environmental impacts. Eat your beans!",
+  3: "Great source of micronutrients and dietary fiber, with low environmental impacts. Eat plenty of fruit!",
+  4: "Most nuts contain healthy oils and some protein. Choose unsalted or low-sodium products. While producing tree nuts may require a lot of water, their overall environmental impact is medium.",
+  5: "Excellent source of protein, iron, and other micronutrients, but meats' saturated fat and other substances promote cardiovascular disease, premature death, and probably cancer, so enjoy only occasionally. The production of red meat has the highest environmental impact of any food because of the use of fertilizer, growing of feed grains, and cows' manure and emission of methane. Choosing pork, and especially chicken, over beef can lower your diet's environmental impact.",
+  6: "Processed meats are high in sodium, saturated fat, nitrite, and carcinogenic contaminants. Frequent consumption may cause colon cancer. Processed meats, especially beef products, have a high environmental impact because of the feed required and manure and methane produced.",
+  7: "Excellent sources of animal protein. Non-fried chicken saves on calories. Limit egg yolks, which are high in cholesterol, to two per week. The environmental impacts of producing poultry meat are the lowest among meat options because poultry are highly efficient converters of feed to meat.",
+  8: "Seafood is rich in protein and is either low-fat or has healthful omega-3 fatty acids (e.g., salmon, trout). Hold down calories by avoiding fried seafood. Note that a serving of shrimp has as much cholesterol as eggs. The environmental impacts (based on farmed fish) is among the lowest of the animal-flesh options. Smaller fish (e.g., tilapia) are less likely to accumulate toxins than large varieties (e.g., tuna).",
+  9: "Milk, yogurt and some plant-based substitutes contain protein, calcium, and several vitamins. Dairy products' modest environmental impacts are due to the fertilizer and other resources for growing feed grains and cows belching methane and excreting manure. Plant-based milks have lower impacts.",
+  10: "Milk, yogurt and some plant-based substitutes contain protein, calcium, and several vitamins, but they also contain saturated fat and some cholesterol. Dairy products' modest environmental impacts are due to belching of methane, need for feed grains, and excretion of manure, but plant-based milks have lower impacts.",
+  11: "Restaurant meals (especially at table-service restaurants) typically feature meat, cheese, and white flour with minor amounts of veggies and fruit. They tend to be high in calories, sodium, and saturated fat but low in dietary fiber. The environmental impacts of meals largely depend on whether they contain meat. The environmental scores are based only on the fats in average meals and are low despite the health concerns.",
+  12: "Good source of fiber and modest amounts of other nutrients. Unfortunately, breads (including pizza crusts and tortillas) are a major source of sodium. The environmental impacts of producing whole grains are low.",
+  13: "The refining of grains reduces their content of nutrients and dietary fiber. The environmental impacts of producing refined grains are low.",
+  14: "Frequent consumption of sugar drinks promotes obesity, heart disease, type 2 diabetes, and tooth decay. Diet drinks are probably safer, but the best choices are plain water or carbonated water with or without added flavorings. The environmental impacts of producing sugar and high-fructose corn syrup are low.",
+  15: "Sweets are typically high in sugar and/or saturated fat and white flour, so enjoy only occasionally. The environmental impact, based here on sugar, of producing sweets is relatively low.",
+  16: "Alcohol increases risks of cancer, liver disease, auto crashes, domestic violence, and impaired careers. The environmental impact of producing alcoholic drinks is low."
 };
+
 
 const OPTIONS_ORDER = [
   "Less than once per week",
@@ -617,6 +618,15 @@ const MAX_TOTAL = Q_COUNT * MAX_PER_Q;
 const state = {
   answers: {}
 };
+
+const TITLE_OPTIONS = [
+  "The FoodPrint Analyzer",
+  "Health & Planet Scorecard",
+  "Your Plate, Your Planet",
+  "Health & Planet Scorecard",
+  "The Foodprint Lab",
+  "The Food Impact Meter"
+];
 
 function clamp(n, a, b) {
   return Math.max(a, Math.min(b, n));
@@ -638,6 +648,53 @@ function pctMarker(total) {
 function getOption(qid, optionKey) {
   const q = DATA.find(x => x.id === qid);
   return q.options.find(o => o.key === optionKey);
+}
+
+function showTooltip(q, event) {
+  const tooltip = document.getElementById("hoverTooltip");
+  if (!tooltip) return;
+
+  const cleanedTitle = q.title.replace(/\.\s*$/, "");
+  const title = `${cleanedTitle}`;
+  const text = EXPLANATIONS[q.id] || "";
+  tooltip.dataset.qid = String(q.id);
+  tooltip.innerHTML = `
+    <div class="hover-tooltip__title">${escapeHtml(title)}</div>
+    <div class="hover-tooltip__text">${escapeHtml(text)}</div>
+  `;
+  tooltip.classList.add("is-visible");
+  moveTooltip(event);
+}
+
+function hideTooltip() {
+  const tooltip = document.getElementById("hoverTooltip");
+  if (!tooltip) return;
+  tooltip.classList.remove("is-visible");
+  tooltip.dataset.qid = "";
+}
+
+function moveTooltip(event) {
+  const tooltip = document.getElementById("hoverTooltip");
+  if (!tooltip || !event) return;
+
+  const pad = 14;
+  const hasPointer = typeof event.clientX === "number" && typeof event.clientY === "number";
+  let baseX = pad;
+  let baseY = pad;
+  if (hasPointer) {
+    baseX = event.clientX;
+    baseY = event.clientY;
+  } else if (event.target && event.target.getBoundingClientRect) {
+    const rect = event.target.getBoundingClientRect();
+    baseX = rect.right;
+    baseY = rect.bottom;
+  }
+  const maxX = window.innerWidth - tooltip.offsetWidth - pad;
+  const maxY = window.innerHeight - tooltip.offsetHeight - pad;
+  const x = Math.min(baseX + pad, maxX);
+  const y = Math.min(baseY + pad, maxY);
+  tooltip.style.left = `${Math.max(pad, x)}px`;
+  tooltip.style.top = `${Math.max(pad, y)}px`;
 }
 
 function computeTotals() {
@@ -682,10 +739,36 @@ function render() {
 
     const title = document.createElement("h3");
     title.className = "qtitle";
-    title.textContent = `Q${q.id}. ${q.title}`;
+    const cleanedTitle = q.title.replace(/\.\s*$/, "");
+    const titleText = document.createElement("span");
+    titleText.className = "qtitle__text";
+    titleText.textContent = `Q${q.id}. ${cleanedTitle}`;
+
+    const helpBtn = document.createElement("button");
+    helpBtn.type = "button";
+    helpBtn.className = "qhelp";
+    helpBtn.setAttribute("aria-label", "Explain this question");
+    helpBtn.textContent = "?";
+    helpBtn.addEventListener("mouseenter", (event) => showTooltip(q, event));
+    helpBtn.addEventListener("mousemove", moveTooltip);
+    helpBtn.addEventListener("mouseleave", hideTooltip);
+    helpBtn.addEventListener("focus", (event) => showTooltip(q, event));
+    helpBtn.addEventListener("blur", hideTooltip);
+    helpBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      const tooltip = document.getElementById("hoverTooltip");
+      if (tooltip && tooltip.classList.contains("is-visible") && tooltip.dataset.qid === String(q.id)) {
+        hideTooltip();
+        return;
+      }
+      showTooltip(q, event);
+    });
+
+    title.appendChild(titleText);
+    title.appendChild(helpBtn);
 
     const desc = document.createElement("p");
-    desc.className = "qdesc";
+    desc.className = "qdesc qdesc--hidden";
     desc.textContent = EXPLANATIONS[q.id] || "";
 
     const scores = document.createElement("div");
@@ -770,17 +853,22 @@ function updateUI() {
   const healthMarkerBottom = document.getElementById("healthMarkerBottom");
   const envMarkerBottom = document.getElementById("envMarkerBottom");
 
+  const showMarkers = totals.answered > 0;
   if (healthMarker) healthMarker.style.left = healthPos;
   if (envMarker) envMarker.style.left = envPos;
   if (healthMarkerBottom) healthMarkerBottom.style.left = healthPos;
   if (envMarkerBottom) envMarkerBottom.style.left = envPos;
+  if (healthMarker) healthMarker.style.opacity = showMarkers ? "1" : "0";
+  if (envMarker) envMarker.style.opacity = showMarkers ? "1" : "0";
+  if (healthMarkerBottom) healthMarkerBottom.style.opacity = showMarkers ? "1" : "0";
+  if (envMarkerBottom) envMarkerBottom.style.opacity = showMarkers ? "1" : "0";
 
   renderAdviceIfComplete();
 }
 
 function qName(qid) {
   const q = DATA.find(x => x.id === qid);
-  return `Q${qid} ${q.title}`;
+  return q.title.replace(/\.\s*$/, "");
 }
 
 function escapeHtml(s) {
@@ -843,7 +931,7 @@ function renderAdviceIfComplete() {
     if (healthyRules[q.id] && healthyRules[q.id](h)) {
       healthyList.push({
         id: q.id,
-        text: `${qName(q.id)} (${h} point${h === 1 ? "" : "s"})`
+        text: qName(q.id)
       });
     }
 
@@ -851,22 +939,22 @@ function renderAdviceIfComplete() {
       moreList.push({
         id: q.id,
         health: h,
-        text: `${qName(q.id)} (${h} point${h === 1 ? "" : "s"})`
+        text: qName(q.id)
       });
     }
 
     if (lessFoods.includes(q.id)) {
       if (q.id === 6 && h === 0) {
-        lessList.push({ id: q.id, text: `${qName(q.id)} (0 points)` });
+        lessList.push({ id: q.id, text: qName(q.id) });
       } else if (q.id === 9) {
         if (key === "Nearly daily or daily" || key === "Twice or more times per day") {
-          lessList.push({ id: q.id, text: `${qName(q.id)} (${key})` });
+          lessList.push({ id: q.id, text: qName(q.id) });
         }
       } else {
         if (h === 0) {
-          lessList.push({ id: q.id, text: `${qName(q.id)} (0 points)` });
+          lessList.push({ id: q.id, text: qName(q.id) });
         } else if (q.id === 5 && h === 1) {
-          lessList.push({ id: q.id, text: `${qName(q.id)} (1 point)` });
+          lessList.push({ id: q.id, text: qName(q.id) });
         }
       }
     }
@@ -880,12 +968,12 @@ function renderAdviceIfComplete() {
     return healthyRules[q.id] ? healthyRules[q.id](h) : false;
   });
 
-  if (intro) intro.textContent = "Here is your feedback based on your Health scores.";
+  if (intro) intro.textContent = "Based on your answers, here’s how your diet compares to recommended patterns.";
   box.hidden = false;
 
   const html = [];
 
-  html.push(`<h3>You’re consuming healthy amounts of these foods:</h3>`);
+  html.push(`<h3>Your answers suggest healthy intake of these foods:</h3>`);
   if (healthyList.length === 0) {
     html.push(`<p class="muted">None yet based on the scoring rules.</p>`);
   } else {
@@ -919,3 +1007,24 @@ function renderAdviceIfComplete() {
 }
 
 render();
+
+function initTitleSwitcher() {
+  const button = document.getElementById("titleSwitcher");
+  const arcText = document.getElementById("titleArcText");
+  const titleText = document.getElementById("titleText");
+  const srText = document.getElementById("titleSrOnly");
+  if (!button || !arcText || !titleText || !srText) return;
+
+  const applyTitle = (value) => {
+    arcText.textContent = value;
+    titleText.textContent = value;
+    srText.textContent = value;
+  };
+
+  applyTitle(button.value || TITLE_OPTIONS[0]);
+  button.addEventListener("change", (event) => {
+    applyTitle(event.target.value);
+  });
+}
+
+initTitleSwitcher();
