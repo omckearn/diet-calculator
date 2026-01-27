@@ -48,11 +48,13 @@
     <section class="layout" aria-label="Diet questions and scores">
       <div class="layout__main">
         <section class="questions" aria-label="Diet questions">
-          <p class="intro-note">Answer 16 quick questions about how often you eat certain foods to see how your diet affects your health and the environment.</p>
-          <p class="hover-hint">Select the question mark for more information about each food category.</p>
-          <button id="jumpNextUnanswered" class="btn btn--ghost jump-next" type="button" hidden>
-            Jump to next unanswered
-          </button>
+          <div class="intro-panel">
+            <p class="intro-note">Answer 16 quick questions about how often you eat certain foods to see how your diet affects your health and the environment.</p>
+            <p class="hover-hint">Select the question mark for more information about each food category.</p>
+            <button id="jumpNextUnanswered" class="btn btn--ghost jump-next" type="button" hidden>
+              Jump to next unanswered
+            </button>
+          </div>
           <div id="questionsRoot"></div>
         </section>
       </div>

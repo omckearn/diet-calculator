@@ -97,17 +97,17 @@ h1{
   display:flex;
   justify-content:center;
   width: 100%;
-  margin: -36px 0 6px;
+  margin: -64px 0 4px;
 }
 .subtitle-arc__svg{
   width: 100%;
-  height: clamp(54px, 5.2vw, 96px);
+  height: clamp(64px, 6.4vw, 118px);
   overflow: visible;
 }
 .subtitle-arc__svg text{
   font-family: "Bungee", "Impact", sans-serif;
-  font-size: clamp(18px, 3.2vw, 32px);
-  fill: var(--muted);
+  font-size: clamp(22px, 4vw, 38px);
+  fill: var(--text);
   text-transform: uppercase;
   letter-spacing: -0.02em;
 }
@@ -267,6 +267,14 @@ h2, h3{
 .questions{
   margin-top: 10px;
 }
+.intro-panel{
+  background: linear-gradient(140deg, #d7e6f7, #e5f0cf 55%, #f1d6c8);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  box-shadow: 0 6px 0 rgba(17,24,39,.08);
+  margin: 0 0 12px;
+}
 .hover-hint{
   margin: 0 0 10px;
   color: var(--muted);
@@ -360,9 +368,9 @@ h2, h3{
   background: linear-gradient(140deg, #d7e6f7, #e5f0cf 55%, #f1d6c8);
   border:2px solid var(--accent);
   border-radius: var(--radius);
-  padding: var(--pad);
+  padding: 10px;
   box-shadow: 0 6px 0 rgba(17,24,39,.08);
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   position: relative;
 }
 .qcheck{
@@ -402,7 +410,7 @@ h2, h3{
   gap: 12px;
   align-items:flex-start;
   justify-content:space-between;
-  margin-bottom: 14px;
+  margin-bottom: 6px;
 }
 .qtext{
   max-width: 62ch;
