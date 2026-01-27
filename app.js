@@ -1193,7 +1193,11 @@ function renderAdviceIfComplete() {
     6: (h) => h === 2,
     7: (h) => h === 2,
     8: (h) => h === 2,
-    9: (h) => h === 1,
+    9: (_h, key) => (
+      key === "Less than once per week" ||
+      key === "Once per week" ||
+      key === "2-4 times per week"
+    ),
     10: (h) => h === 2,
     11: (h) => h === 1,
     12: (h) => h === 2,
@@ -1212,9 +1216,10 @@ function renderAdviceIfComplete() {
 
   for (const q of DATA) {
     const { key, opt } = picked(q.id);
+    if (!opt) continue;
     const h = Number(opt.health);
 
-    if (healthyRules[q.id] && healthyRules[q.id](h)) {
+    if (healthyRules[q.id] && healthyRules[q.id](h, key)) {
       healthyList.push({
         id: q.id,
         text: qName(q.id)
@@ -1249,9 +1254,10 @@ function renderAdviceIfComplete() {
   moreList.sort((a,b) => a.health - b.health || a.id - b.id);
 
   const perfect = DATA.every(q => {
-    const { opt } = picked(q.id);
+    const { key, opt } = picked(q.id);
+    if (!opt) return false;
     const h = Number(opt.health);
-    return healthyRules[q.id] ? healthyRules[q.id](h) : false;
+    return healthyRules[q.id] ? healthyRules[q.id](h, key) : false;
   });
 
   if (intro) intro.textContent = "Based on your answers, here’s how your diet compares to recommended patterns.";
