@@ -587,16 +587,16 @@ const EXPLANATIONS = {
   2: "Great sources of protein, micronutrients, and dietary fiber. Eating legumes wards off chronic diseases, and producing legumes supports soil health and has minimal adverse environmental impacts. Eat your beans!",
   3: "Great source of micronutrients and dietary fiber, with low environmental impacts. Eat plenty of fruit!",
   4: "Most nuts contain healthy oils and some protein. Choose unsalted or low-sodium products. While producing tree nuts may require a lot of water, their overall environmental impact is medium.",
-  5: "Excellent source of protein, iron, and other micronutrients, but meats' saturated fat and other substances promote cardiovascular disease, premature death, and probably cancer, so enjoy only occasionally. The production of red meat has the highest environmental impact of any food because of the use of fertilizer, growing of feed grains, and cows' manure and emission of methane. Choosing pork, and especially chicken, over beef can lower your diet's environmental impact.",
+  5: "Excellent source of protein, iron, and other micronutrients, but meats' saturated fat and other unhealthy substances promote cardiovascular disease, premature death, and probably cancer, so enjoy only occasionally. The production of red meat has the highest environmental impact of any food because of the use of fertilizer, growing of feed grains, and cows' manure and emission of methane. Choosing pork, and especially chicken, over beef can lower your diet's environmental impact.",
   6: "Processed meats are high in sodium, saturated fat, nitrite, and carcinogenic contaminants. Frequent consumption may cause colon cancer. Processed meats, especially beef products, have a high environmental impact because of the feed required and manure and methane produced.",
   7: "Excellent sources of animal protein. Non-fried chicken saves on calories. Limit egg yolks, which are high in cholesterol, to two per week. The environmental impacts of producing poultry meat are the lowest among meat options because poultry are highly efficient converters of feed to meat.",
   8: "Seafood is rich in protein and is either low-fat or has healthful omega-3 fatty acids (e.g., salmon, trout). Hold down calories by avoiding fried seafood. Note that a serving of shrimp has as much cholesterol as eggs. The environmental impacts (based on farmed fish) is among the lowest of the animal-flesh options. Smaller fish (e.g., tilapia) are less likely to accumulate toxins than large varieties (e.g., tuna).",
   9: "Milk, yogurt and some plant-based substitutes contain protein, calcium, and several vitamins. Dairy products' modest environmental impacts are due to the fertilizer and other resources for growing feed grains and cows belching methane and excreting manure. Plant-based milks have lower impacts.",
   10: "Milk, yogurt and some plant-based substitutes contain protein, calcium, and several vitamins, but they also contain saturated fat and some cholesterol. Dairy products' modest environmental impacts are due to belching of methane, need for feed grains, and excretion of manure, but plant-based milks have lower impacts.",
   11: "Restaurant meals (especially at table-service restaurants) typically feature meat, cheese, and white flour with minor amounts of veggies and fruit. They tend to be high in calories, sodium, and saturated fat but low in dietary fiber. The environmental impacts of meals largely depend on whether they contain meat. The environmental scores are based only on the fats in average meals and are low despite the health concerns.",
-  12: "Good source of fiber and modest amounts of other nutrients. Unfortunately, breads (including pizza crusts and tortillas) are a major source of sodium. The environmental impacts of producing whole grains are low.",
-  13: "The refining of grains reduces their content of nutrients and dietary fiber. The environmental impacts of producing refined grains are low.",
-  14: "Frequent consumption of sugar drinks promotes obesity, heart disease, type 2 diabetes, and tooth decay. Diet drinks are probably safer, but the best choices are plain water or carbonated water with or without added flavorings. The environmental impacts of producing sugar and high-fructose corn syrup are low.",
+  12: "Good source of fiber and modest amounts of other nutrients. Unfortunately, breads (including pizza crusts and tortillas) are a major source of sodium. The environmental impact of producing whole grains is low.",
+  13: "The refining of grains reduces their content of nutrients and dietary fiber. The environmental impacts of producing refined grains is low.",
+  14: "Frequent consumption of sugar drinks promotes obesity, heart disease, type 2 diabetes, and tooth decay. Diet drinks are probably safer, but the best choices are plain water or carbonated water with or without added flavorings. The environmental impacts of producing sugar and high-fructose corn syrup is low.",
   15: "Sweets are typically high in sugar and/or saturated fat and white flour, so enjoy only occasionally. The environmental impact, based here on sugar, of producing sweets is relatively low.",
   16: "Alcohol increases risks of cancer, liver disease, auto crashes, domestic violence, and impaired careers. The environmental impact of producing alcoholic drinks is low."
 };
@@ -752,7 +752,7 @@ function render() {
     helpBtn.type = "button";
     helpBtn.className = "qhelp";
     helpBtn.setAttribute("aria-label", "Explain this question");
-    helpBtn.textContent = "?";
+    helpBtn.textContent = "more info";
     helpBtn.addEventListener("mouseenter", (event) => showTooltip(q, event));
     helpBtn.addEventListener("mousemove", moveTooltip);
     helpBtn.addEventListener("mouseleave", hideTooltip);

@@ -49,7 +49,7 @@
       <div class="layout__main">
         <section class="questions" aria-label="Diet questions">
           <p class="intro-note">Answer 16 quick questions about how often you eat certain foods to see how your diet affects your health and the environment.</p>
-          <p class="hover-hint">Select the question mark for more information.</p>
+          <p class="hover-hint">Select the question mark for more information about each food category.</p>
           <button id="jumpNextUnanswered" class="btn btn--ghost jump-next" type="button" hidden>
             Jump to next unanswered
           </button>
@@ -64,7 +64,7 @@
               <div class="scorecard__label">Total Health Score</div>
               <div class="scorecard__value" id="totalHealth">0</div>
               <div class="scorecard__max">out of <span id="maxTotalHealth">32</span></div>
-              <div class="scorecard__note">Higher scores indicate healthier patterns.</div>
+              <div class="scorecard__note">Higher scores indicate healthier diets.</div>
             </div>
             <div class="legend__stack">
               <div class="legend__title">Health total</div>
@@ -108,13 +108,13 @@
           <path id="adviceArcPath" d="M 40 140 Q 600 20 1160 140" fill="none"></path>
           <text>
             <textPath href="#adviceArcPath" startOffset="50%" text-anchor="middle">
-              Personalized dietary advice
+              Personalized Feedback
             </textPath>
           </text>
         </svg>
       </div>
       <div class="advice" aria-label="Personalized advice">
-        <h2 class="sr-only">Personalized dietary advice</h2>
+        <h2 class="sr-only">Personalized Feedback</h2>
         <p id="adviceIntro" class="advice__intro"></p>
         <div id="adviceContent" class="advice__content" hidden></div>
       </div>

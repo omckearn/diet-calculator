@@ -2,7 +2,7 @@
 
 /* Minimal, readable layout */
 :root{
-  --bg:#ffffff;
+  --bg:#f6f1e9;
   --panel:#ffffff;
   --text:#161a1e;
   --muted:#5b6470;
@@ -28,10 +28,13 @@ html,body{ height:100%; }
 body{
   margin:0;
   font-family: "Space Grotesk", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
   background-color: var(--bg);
   background-image:
-    radial-gradient(rgba(17,24,39,.045) 1px, transparent 1px),
-    radial-gradient(rgba(17,24,39,.03) 1px, transparent 1px);
+    linear-gradient(180deg, rgba(255,245,230,.7), rgba(255,255,255,.2)),
+    radial-gradient(rgba(17,24,39,.05) 1px, transparent 1px),
+    radial-gradient(rgba(17,24,39,.035) 1px, transparent 1px);
   background-size: 22px 22px, 50px 50px;
   background-position: 0 0, 12px 14px;
   color:var(--text);
@@ -95,16 +98,16 @@ h1{
   display:flex;
   justify-content:center;
   width: 100%;
-  margin: -70px 0 4px;
+  margin: -50px 0 10px;
 }
 .subtitle-arc__svg{
   width: 100%;
-  height: clamp(44px, 5vw, 80px);
+  height: clamp(58px, 6vw, 110px);
   overflow: visible;
 }
 .subtitle-arc__svg text{
   font-family: "Bungee", "Impact", sans-serif;
-  font-size: clamp(20px, 4vw, 34px);
+  font-size: clamp(24px, 4.6vw, 40px);
   fill: var(--muted);
   text-transform: uppercase;
   letter-spacing: -0.01em;
@@ -269,7 +272,7 @@ h2, h3{
 .hover-hint{
   margin: 0 0 10px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 18px;
 }
 .jump-next{
   margin: 0 0 12px;
@@ -283,7 +286,7 @@ h2, h3{
 }
 .intro-note{
   margin: 0 0 6px;
-  font-size: 14px;
+  font-size: 18px;
   color: var(--text);
 }
 .hover-tooltip{
@@ -307,13 +310,13 @@ h2, h3{
 .hover-tooltip__title{
   margin: 0 0 6px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: .02em;
 }
 .hover-tooltip__text{
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
 }
 .layout{
@@ -340,7 +343,7 @@ h2, h3{
   min-width: 0;
 }
 .qcard{
-  background: linear-gradient(140deg, rgba(84,137,195,.13), rgba(172,191,94,.12) 55%, rgba(210,96,66,.13));
+  background: linear-gradient(140deg, rgba(84,137,195,.22), rgba(172,191,94,.22) 55%, rgba(210,96,66,.2));
   border:2px solid var(--accent);
   border-radius: var(--radius);
   padding: var(--pad);
@@ -397,26 +400,36 @@ h2, h3{
   font-weight: 600;
   letter-spacing: 0;
   line-height:1.25;
-  display:flex;
-  align-items:center;
+  display:grid;
+  grid-template-columns: 1fr auto auto;
+  align-items:start;
   gap: 8px;
-  flex-wrap: wrap;
+}
+.qtitle__text{
+  min-width: 0;
+  grid-column: 1;
 }
 .qhelp{
+  grid-column: 2;
   border: 2px solid var(--accent);
   background: #ffffff;
   color: var(--accent);
-  width: 22px;
-  height: 22px;
+  height: 24px;
+  padding: 0 8px;
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   cursor: pointer;
-  padding: 0;
+}
+.qcheck{
+  grid-column: 3;
+  align-self: start;
 }
 .qhelp:hover,
 .qhelp:focus{
@@ -444,10 +457,10 @@ h2, h3{
   display:inline-flex;
   align-items:center;
   gap: 8px;
-  padding: 8px 10px;
+  padding: 6px 8px;
   border-radius: 999px;
   border:1px solid rgba(0,0,0,.12);
-  font-size: 13px;
+  font-size: 12px;
   white-space:nowrap;
 }
 .badge__k{
@@ -469,17 +482,20 @@ h2, h3{
 .choices{
   display:flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 8px;
 }
 .choice{
   border:2px solid var(--accent);
-  background: rgba(255,255,255,.92);
+  background: rgba(255,248,236,.95);
   border-radius: 12px;
-  padding: 6px 10px;
-  min-height: 40px;
+  padding: 6px 8px;
+  min-height: 36px;
   display:flex;
   align-items:center;
   gap: 10px;
+  width: fit-content;
+  max-width: 100%;
 }
 .choice input{
   margin-top: 0;
@@ -488,12 +504,13 @@ h2, h3{
 }
 .choice label{
   cursor:pointer;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 500;
   line-height:1.2;
   color: rgba(31,41,51,.9);
 }
 .choice:has(input:checked){
-  background: rgba(84,137,195,.12);
+  background: rgba(84,137,195,.18);
   border-color: rgba(17,24,39,.9);
 }
 .choice input:checked + label{
@@ -527,6 +544,7 @@ h2, h3{
 .advice__intro{
   margin: 0 0 8px;
   color: var(--muted);
+  font-size: 15px;
 }
 .advice__content ul{
   list-style: none;
@@ -589,7 +607,7 @@ h2, h3{
 }
 .advice-title__svg text{
   font-family: "Bungee", "Impact", sans-serif;
-  font-size: clamp(20px, 4vw, 36px);
+  font-size: clamp(24px, 4.6vw, 42px);
   fill: var(--text);
   text-transform: uppercase;
   letter-spacing: -0.01em;
@@ -598,7 +616,7 @@ h2, h3{
 .footer{
   margin-top: 16px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .btn{
@@ -660,6 +678,7 @@ h2, h3{
 @media (max-width: 940px){
   body{
     background-image:
+      linear-gradient(180deg, rgba(255,245,230,.7), rgba(255,255,255,.2)),
       radial-gradient(rgba(17,24,39,.04) 1px, transparent 1px);
     background-size: 26px 26px;
     background-position: 0 0;
@@ -682,7 +701,7 @@ h2, h3{
     gap: 10px;
   }
   .scoreboard__row{
-    grid-template-columns: minmax(160px, 0.9fr) minmax(200px, 1.1fr);
+    grid-template-columns: 1fr;
     align-items: center;
     gap: 10px;
   }
@@ -722,6 +741,11 @@ h2, h3{
   .qtop{ flex-direction: column; align-items:flex-start; }
   .qscores{ justify-content:flex-start; }
   .header__title-switch{ position: static; }
+}
+@media (max-width: 720px){
+  .qtitle__text{
+    flex: 1 1 100%;
+  }
 }
 @media (max-width: 560px){
   .choices{ gap: 6px; }
