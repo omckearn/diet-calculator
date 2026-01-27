@@ -985,6 +985,54 @@ function initRetakeButton() {
   });
 }
 
+function initScoreboardToggle() {
+  const toggle = document.getElementById("scoreboardToggle");
+  const board = document.querySelector(".scoreboard");
+  if (!toggle || !board) return;
+
+  const mql = window.matchMedia("(max-width: 940px)");
+  let userPreference = null;
+
+  const setCollapsed = (collapsed) => {
+    board.classList.toggle("scoreboard--collapsed", collapsed);
+    toggle.setAttribute("aria-expanded", String(!collapsed));
+    toggle.textContent = collapsed ? "↗" : "↙";
+    toggle.setAttribute(
+      "aria-label",
+      collapsed ? "Expand scores" : "Collapse scores"
+    );
+  };
+
+  const applyMode = () => {
+    if (mql.matches) {
+      toggle.hidden = false;
+      if (userPreference) {
+        setCollapsed(userPreference === "collapsed");
+      } else {
+        setCollapsed(true);
+      }
+    } else {
+      toggle.hidden = true;
+      board.classList.remove("scoreboard--collapsed");
+    }
+  };
+
+  toggle.addEventListener("click", () => {
+    if (!mql.matches) return;
+    const nowCollapsed = !board.classList.contains("scoreboard--collapsed");
+    setCollapsed(nowCollapsed);
+    userPreference = nowCollapsed ? "collapsed" : "expanded";
+  });
+
+  if (mql.addEventListener) {
+    mql.addEventListener("change", applyMode);
+  } else {
+    mql.addListener(applyMode);
+  }
+
+  applyMode();
+}
+
 function getAdviceIconSvg(qid) {
   const icons = {
     1: `<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1233,3 +1281,4 @@ initTooltipEscClose();
 initAdviceHoverTooltips();
 initJumpButton();
 initRetakeButton();
+initScoreboardToggle();
