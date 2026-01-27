@@ -800,10 +800,7 @@ function render() {
 
     const key = state.answers[q.id];
     if (!key) {
-      const b = document.createElement("div");
-      b.className = "badge badge--muted";
-      b.textContent = "No selection";
-      scores.appendChild(b);
+      scores.classList.add("qscores--empty");
     } else {
       const opt = getOption(q.id, key);
 
@@ -843,7 +840,7 @@ function render() {
       input.addEventListener("change", () => {
         state.answers[q.id] = optKey;
         updateUI();
-        render();
+        updateQuestionCard(q.id);
       });
 
       const label = document.createElement("label");
@@ -890,6 +887,39 @@ function updateUI() {
   updateJumpButtonVisibility(totals.answered);
   updateRetakeButtonVisibility(totals.answered);
   renderAdviceIfComplete();
+}
+
+function updateQuestionCard(qid) {
+  const card = document.querySelector(`.qcard[data-qid="${qid}"]`);
+  if (!card) return;
+
+  const key = state.answers[qid];
+  if (key) {
+    card.classList.add("qcard--answered");
+  } else {
+    card.classList.remove("qcard--answered");
+  }
+
+  const scores = card.querySelector(".qscores");
+  if (!scores) return;
+  scores.innerHTML = "";
+  scores.classList.remove("qscores--empty");
+
+  if (!key) {
+    scores.classList.add("qscores--empty");
+    return;
+  }
+
+  const opt = getOption(qid, key);
+  const b1 = document.createElement("div");
+  b1.className = `badge ${colorClassFromScore(opt.health)}`;
+  b1.innerHTML = `<span class="badge__k">Health</span> <span>${Number(opt.health)}</span>`;
+  scores.appendChild(b1);
+
+  const b2 = document.createElement("div");
+  b2.className = `badge ${colorClassFromScore(opt.env)}`;
+  b2.innerHTML = `<span class="badge__k">Env</span> <span>${Number(opt.env).toFixed(1)}</span>`;
+  scores.appendChild(b2);
 }
 
 function qName(qid) {
@@ -1137,13 +1167,16 @@ function renderAdviceIfComplete() {
   const totals = computeTotals();
   const intro = document.getElementById("adviceIntro");
   const box = document.getElementById("adviceContent");
+  const panel = document.querySelector(".advice");
 
   if (totals.answered !== Q_COUNT) {
-    if (intro) intro.textContent = "";
+    if (panel) panel.classList.add("advice--locked");
+    if (intro) intro.textContent = "Complete all 16 questions to unlock personalized feedback.";
     box.hidden = true;
     box.innerHTML = "";
     return;
   }
+  if (panel) panel.classList.remove("advice--locked");
 
   const picked = (qid) => {
     const key = state.answers[qid];
