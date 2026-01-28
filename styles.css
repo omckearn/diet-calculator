@@ -325,6 +325,7 @@ h2, h3{
   letter-spacing: 0;
   text-transform: none;
   box-shadow: none;
+  display: none;
 }
 .layout__aside .scoreboard{
   position: static;
@@ -462,15 +463,15 @@ h2, h3{
   display:inline-flex;
   align-items:center;
   gap: 8px;
-  padding: 7px 10px;
+  padding: 8px 12px;
   border-radius: 999px;
   border:1px solid rgba(0,0,0,.12);
-  font-size: 13px;
+  font-size: 14px;
   white-space:nowrap;
 }
 .badge__k{
   color: rgba(255,255,255,.9);
-  font-weight: 700;
+  font-weight: 800;
 }
 .badge--red{ background: rgba(229,57,53,.92); }
 .badge--yellow{ background: rgba(251,192,45,.92); color: #1f2933; }
@@ -752,6 +753,9 @@ h2, h3{
   .qscores{ justify-content:flex-start; }
 }
 @media (max-width: 940px){
+  .scoreboard-toggle{
+    display: inline-flex;
+  }
   .scoreboard--collapsed{
     padding: 6px;
     gap: 8px;
@@ -823,5 +827,15 @@ h2, h3{
     font-size: 16px;
     font-weight: 800;
     line-height: 1;
+  }
+}
+
+/* Ensure toggle stays hidden on wide screens (override .btn display) */
+.scoreboard-toggle{
+  display: none;
+}
+@media (max-width: 940px){
+  .scoreboard-toggle{
+    display: inline-flex;
   }
 }
