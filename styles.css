@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@600;700;800&display=swap");
 
 /* Minimal, readable layout */
 :root{
@@ -27,9 +27,9 @@
 html,body{ height:100%; }
 body{
   margin:0;
-  font-family: "Space Grotesk", "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   background-color: var(--bg);
   background-image:
     linear-gradient(180deg, rgba(255,245,230,.7), rgba(255,255,255,.2)),
@@ -63,8 +63,151 @@ body{
   position: relative;
   width: 100%;
 }
+/* --- Meter header: prevent clipping, improve dial look --- */
+.meter-title{
+  width: min(980px, 100%);
+  max-width: 100%;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.meter-dial{
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible; /* critical: stops "cut off" */
+}
+
+/* Frame stays darker */
+.meter-frame{
+  fill: #f7f3ee;
+  stroke: #1f2933;
+  stroke-width: 8;
+}
+
+/* Dial visuals go light gray */
+.meter-arc{
+  fill: none;
+  stroke: rgba(120, 124, 130, 0.35);
+  stroke-width: 10;
+}
+
+.meter-title__text{
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
+}
+
+/* ===== CLEAN METER HEADER FIX ===== */
+
+.meter-dial {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  overflow: visible;
+  display: block;
+}
+
+/* OUTER FRAME */
+.meter-frame{
+  fill: #ffffff;
+  stroke: #1f2933;
+  stroke-width: 6;
+  filter: drop-shadow(0 6px 0 rgba(0,0,0,.12))
+          drop-shadow(0 14px 20px rgba(0,0,0,.18));
+}
+
+/* INNER PANEL */
+.meter-inner {
+  fill: #f4f1eb;
+  stroke: #c7c7c7;
+  stroke-width: 2;
+}
+
+/* TITLE */
+.meter-title-text{
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 40px;
+  font-weight: 800;          /* stronger */
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  fill: #1f2933;
+  filter: drop-shadow(0 3px 0 rgba(0,0,0,.18)); /* slightly stronger */
+}
+
+/* keep the white outline but tighten it so it looks crisp */
+.meter-title-text textPath{
+  paint-order: stroke fill;
+  stroke: rgba(255,255,255,.85);
+  stroke-width: 5px;         /* slightly thinner than 6 */
+  stroke-linejoin: round;
+}
+
+@media (max-width: 520px){
+  .meter-title-text{ font-size: 30px; }
+}
+
+/* ARC */
+.meter-arc {
+  fill: none;
+  stroke: rgba(0,0,0,0.25);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+/* TICKS */
+.meter-ticks .major {
+  stroke: rgba(110, 110, 110, 0.7);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+.meter-ticks .minor {
+  stroke: rgba(140, 140, 140, 0.5);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+/* NUMBERS */
+.meter-labels text {
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  fill: rgba(120, 120, 120, 0.75);
+}
+
+/* CENTER LABEL */
+.meter-unit {
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  fill: rgba(120, 120, 120, 0.8);
+}
+
+/* NEEDLE */
+.meter-needle {
+  stroke: #1f2933;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.meter-hub {
+  fill: #1f2933;
+}
+
+/* Big subtitle inside the meter box */
+.meter-subtitle{
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 16px;        /* smaller */
+  font-weight: 600;       /* lighter than title */
+  fill: rgba(31,41,51,.78);
+  letter-spacing: 0.00em;
+}
+@media (max-width: 520px){
+  .meter-subtitle{ font-size: 14px; }
+}
 h1{
-  font-family: "Bungee", "Impact", sans-serif;
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
   font-size: clamp(28px, 4vw, 44px);
   line-height:1.05;
   margin:0 0 8px 0;
@@ -75,7 +218,7 @@ h1{
 .site-title{
   margin: 0;
   text-align: center;
-  font-family: "Bungee","Impact",sans-serif;
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.02;
@@ -86,7 +229,7 @@ h1{
 .site-subtitle{
   margin: 10px auto 0;
   text-align: center;
-  font-family: "Bungee","Impact",sans-serif;
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
   text-transform: uppercase;
   letter-spacing: -0.01em;
   line-height: 1.15;
@@ -113,13 +256,28 @@ h1{
   border:0;
 }
 h2, h3{
-  font-family: "Bungee", "Impact", sans-serif;
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
   letter-spacing: 0.01em;
 }
 .tagline{
   margin:0;
   color:var(--muted);
   max-width: 70ch;
+}
+.details-page{
+  font-weight: 500;
+}
+.details-page h1,
+.details-page h2,
+.details-page h3,
+.details-page strong{
+  font-weight: 700;
+}
+.details-page .header,
+.details-page .details-card{
+  max-width: 72ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .scoreboard{
@@ -156,11 +314,12 @@ h2, h3{
   box-shadow: 0 6px 0 rgba(17,24,39,.08);
 }
 .scorecard__label{
-  color: var(--muted);
-  font-size: 13px;
+  color: var(--text);
+  font-size: 16px;
   letter-spacing:.02em;
   text-transform: uppercase;
   margin-bottom:6px;
+  font-weight: 800;
 }
 .scorecard__value{
   font-size: 34px;
@@ -169,12 +328,14 @@ h2, h3{
 .scorecard__max{
   color: var(--muted);
   font-size: 13px;
+  font-weight: 700;
 }
 .scorecard__note{
   margin-top: 6px;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.3;
+  font-weight: 700;
 }
 .progressmeta{
   display:flex;
@@ -187,17 +348,21 @@ h2, h3{
   color: var(--muted);
   text-align:center;
   min-width: 160px;
+  gap: 4px;
+  font-weight: 700;
 }
 
 .legend__title{
   color: var(--muted);
   font-size: 14px;
   margin: 0;
+  font-weight: 700;
 }
 .legend__note{
   color: var(--muted);
   font-size: 13px;
   margin: 6px 0 0;
+  font-weight: 700;
 }
 
 .band{
@@ -231,6 +396,44 @@ h2, h3{
   left: 0%;
 }
 
+@media (min-width: 941px){
+  .band{
+    width: 100%;
+    height: 120px;
+    border-radius: 999px 999px 16px 16px;
+    background:
+      conic-gradient(
+        from 180deg,
+        rgba(229,57,53,.95) 0deg 60deg,
+        rgba(251,192,45,.95) 60deg 120deg,
+        rgba(67,160,71,.95) 120deg 180deg,
+        transparent 180deg 360deg
+      );
+    overflow: hidden;
+  }
+  .band::before{
+    content: "";
+    position: absolute;
+    inset: 12px 16px 0 16px;
+    background: #fffaf0;
+    border-radius: 999px 999px 12px 12px;
+    border: 2px solid rgba(17,24,39,0.2);
+  }
+  .band__seg{
+    display: none;
+  }
+  .band__marker{
+    top: 100%;
+    left: 50%;
+    height: 60%;
+    width: 4px;
+    border-radius: 999px;
+    box-shadow: 0 0 0 2px rgba(255,255,255,.9);
+    transform-origin: 50% 100%;
+    transform: translate(-50%, -100%) rotate(calc(-90deg + (var(--pct, 0) * 1.8deg)));
+  }
+}
+
 .questions{
   margin-top: 10px;
 }
@@ -240,7 +443,8 @@ h2, h3{
   border-radius: var(--radius);
   padding: 12px 14px;
   box-shadow: 0 6px 0 rgba(17,24,39,.08);
-  margin: 0 0 12px;
+  margin: 0 auto 12px;
+  width: min(100%, 80%);
 }
 .hover-hint{
   margin: 0 0 10px;
@@ -295,7 +499,7 @@ h2, h3{
 .layout{
   display:grid;
   grid-template-columns: minmax(0, 1fr) 540px;
-  gap: 18px;
+  gap: 10px;
   align-items:start;
 }
 .layout__main{
@@ -304,6 +508,9 @@ h2, h3{
   border-radius: 24px;
   padding: 14px;
   backdrop-filter: blur(2px);
+  width: min(100%, 70%);
+  margin: 0;
+  justify-self: end;
 }
 .layout__aside{
   position: sticky;
@@ -341,9 +548,12 @@ h2, h3{
 }
 .qcard{
   position: relative;
+  width: min(100%, 80%);
   border-radius: var(--radius);
   padding: 12px 10px;
   margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
   background: #fff7ee;
   border: 2px solid rgba(17,24,39,0.75);
   box-shadow:
@@ -402,7 +612,7 @@ h2, h3{
 .qtitle{
   margin:0;
   font-size: 19px;
-  font-family: "Space Grotesk", "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height:1.25;
@@ -545,7 +755,7 @@ h2, h3{
 }
 .advice h2{
   margin:0 0 10px 0;
-  font-family: "Bungee", "Impact", sans-serif;
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
   font-size: clamp(20px, 2.2vw, 28px);
   letter-spacing: -0.01em;
   text-transform: uppercase;
@@ -624,7 +834,7 @@ h2, h3{
   overflow: visible;
 }
 .advice-title__svg text{
-  font-family: "Bungee", "Impact", sans-serif;
+  font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
   font-size: clamp(24px, 4.6vw, 42px);
   fill: var(--text);
   text-transform: uppercase;

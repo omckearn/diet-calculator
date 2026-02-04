@@ -11,9 +11,107 @@
     <header class="header">
       <a class="btn btn--outline header__cta" href="details.html">Details about the Calculator</a>
       <div class="header__top">
-        <h1 class="site-title">THE FOOD IMPACT METER</h1>
+        <div class="meter-title">
+          <h1 class="sr-only">Food Impact Meter</h1>
+          <svg class="meter-dial" viewBox="0 0 900 420" role="img" aria-label="Food Impact Meter">
+            <defs>
+              <!-- Arc paths -->
+              <path
+                id="titleArc"
+                d="M 180 120 A 900 900 0 0 1 720 120"
+              />
+              <path id="dialArc" d="M 240 310 A 210 210 0 0 1 660 310" />
+            </defs>
+
+            <!-- OUTER FRAME (WHITE) -->
+            <rect
+              x="24"
+              y="24"
+              width="852"
+              height="372"
+              rx="28"
+              class="meter-frame"
+            />
+
+            <!-- INNER PANEL (LIGHT GRAY) -->
+  <rect
+    x="64"
+    y="64"
+    width="772"
+    height="292"
+    rx="20"
+    class="meter-inner"
+  />
+  <rect
+    x="68"
+    y="68"
+    width="764"
+    height="284"
+    rx="18"
+    fill="none"
+    stroke="rgba(0,0,0,0.08)"
+    stroke-width="4"
+  />
+
+            <!-- TITLE -->
+            <text class="meter-title-text">
+              <textPath
+                href="#titleArc"
+                startOffset="50%"
+                text-anchor="middle"
+              >
+                FOOD IMPACT METER
+              </textPath>
+            </text>
+
+            <!-- DIAL ARC -->
+            <path d="M 240 310 A 210 210 0 0 1 660 310" class="meter-arc" />
+
+            <!-- TICKS -->
+            <g class="meter-ticks" transform="translate(450 330)">
+              <line class="tick major" x1="0" y1="-200" x2="0" y2="-165" />
+              <line class="tick minor" x1="0" y1="-200" x2="0" y2="-182" transform="rotate(-72)" />
+              <line class="tick minor" x1="0" y1="-200" x2="0" y2="-182" transform="rotate(-48)" />
+              <line class="tick major" x1="0" y1="-200" x2="0" y2="-165" transform="rotate(-24)" />
+              <line class="tick major" x1="0" y1="-200" x2="0" y2="-165" transform="rotate(0)" />
+              <line class="tick major" x1="0" y1="-200" x2="0" y2="-165" transform="rotate(24)" />
+              <line class="tick minor" x1="0" y1="-200" x2="0" y2="-182" transform="rotate(48)" />
+              <line class="tick minor" x1="0" y1="-200" x2="0" y2="-182" transform="rotate(72)" />
+              <line class="tick major" x1="0" y1="-200" x2="0" y2="-165" transform="rotate(96)" />
+            </g>
+
+            <!-- LABELS -->
+            <g class="meter-labels">
+              <text x="240" y="350">0</text>
+              <text x="330" y="200">8</text>
+              <text x="450" y="180">16</text>
+              <text x="570" y="200">24</text>
+              <text x="660" y="350">32</text>
+            </g>
+
+            <path
+              d="M 260 210 A 210 210 0 0 1 640 210"
+              fill="none"
+              stroke="rgba(0,0,0,0.06)"
+              stroke-width="2"
+            />
+
+            <!-- CENTER LABEL -->
+            <text class="meter-unit" x="450" y="265" text-anchor="middle">DIET</text>
+
+            <!-- NEEDLE -->
+            <g transform="translate(450 310) rotate(51)">
+              <line class="meter-needle" x1="0" y1="0" x2="160" y2="-105" />
+            </g>
+            <circle class="meter-hub" cx="450" cy="310" r="8" />
+
+            <!-- SUBTITLE (plain text under the dial, inside the meter) -->
+            <text class="meter-subtitle" x="450" y="372" text-anchor="middle">
+              The Effect of Your Diet on Your Health and Our Planet
+            </text>
+          </svg>
+        </div>
       </div>
-      <p class="site-subtitle">Estimate the Impact of Your Diet on Your Health and Our Planet</p>
     </header>
 
     <section class="layout" aria-label="Diet questions and scores">
@@ -44,7 +142,7 @@
             </div>
             <div class="legend__stack">
               <div class="legend__title">Health total</div>
-              <div class="band" role="img" aria-label="Health total scale">
+              <div class="band" id="healthBand" role="img" aria-label="Health total scale">
                 <div class="band__seg band__seg--red">Low</div>
                 <div class="band__seg band__seg--yellow">Medium</div>
                 <div class="band__seg band__seg--green">High</div>
@@ -58,11 +156,11 @@
               <div class="scorecard__label">Total Environment Score</div>
               <div class="scorecard__value" id="totalEnv">0.0</div>
               <div class="scorecard__max">out of <span id="maxTotalEnv">32</span></div>
-              <div class="scorecard__note">Higer scores indicate lower environmental impact.</div>
+              <div class="scorecard__note">Higher scores indicate lower environmental impact.</div>
             </div>
             <div class="legend__stack">
               <div class="legend__title">Environment total</div>
-              <div class="band" role="img" aria-label="Environment total scale">
+              <div class="band" id="envBand" role="img" aria-label="Environment total scale">
                 <div class="band__seg band__seg--red">Low</div>
                 <div class="band__seg band__seg--yellow">Medium</div>
                 <div class="band__seg band__seg--green">High</div>
@@ -72,7 +170,8 @@
           </div>
 
           <div class="progressmeta">
-            <span id="answeredCount">0</span>/<span id="questionCount">16</span> answered
+            <span class="progressmeta__count"><span id="answeredCount">0</span>/<span id="questionCount">16</span></span>
+            <span class="progressmeta__label">answered</span>
           </div>
         </section>
       </aside>

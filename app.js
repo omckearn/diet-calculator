@@ -156,7 +156,7 @@ const DATA = [
         "key": "Less than once per week",
         "label": "Less than once per week",
         "health": 2,
-        "env": 7.9
+        "env": 8.0
       },
       {
         "key": "Once per week",
@@ -192,7 +192,7 @@ const DATA = [
         "key": "Less than once per week",
         "label": "Less than once per week",
         "health": 2,
-        "env": 6.5
+        "env": 6.6
       },
       {
         "key": "Once per week",
@@ -228,7 +228,7 @@ const DATA = [
         "key": "Less than once per week",
         "label": "Less than once per week",
         "health": 0,
-        "env": 2.9
+        "env": 3.0
       },
       {
         "key": "Once per week",
@@ -264,7 +264,7 @@ const DATA = [
         "key": "Less than once per week",
         "label": "Less than once per week",
         "health": 0,
-        "env": 2.4
+        "env": 2.5
       },
       {
         "key": "Once per week",
@@ -300,7 +300,7 @@ const DATA = [
         "key": "Less than once per week",
         "label": "Less than once per week",
         "health": 0,
-        "env": 2.4
+        "env": 2.5
       },
       {
         "key": "Once per week",
@@ -474,7 +474,7 @@ const DATA = [
   },
   {
     "id": 14,
-    "title": "High-sugar drinks",
+    "title": "Sugar drinks (soda pop, energy drinks, fruit drinks and juices, sports drinks)",
     "options": [
       {
         "key": "Less than once per week",
@@ -870,16 +870,29 @@ function updateUI() {
 
   const healthPos = `${pctMarker(totals.health)}%`;
   const envPos = `${pctMarker(totals.env)}%`;
+  const healthPct = pctMarker(totals.health);
+  const envPct = pctMarker(totals.env);
   const healthMarker = document.getElementById("healthMarker");
   const envMarker = document.getElementById("envMarker");
   const healthMarkerBottom = document.getElementById("healthMarkerBottom");
   const envMarkerBottom = document.getElementById("envMarkerBottom");
+  const healthBand = document.getElementById("healthBand");
+  const envBand = document.getElementById("envBand");
+  const dialMode = window.matchMedia("(min-width: 941px)").matches;
+
+  if (!dialMode) {
+    if (healthMarker) healthMarker.style.left = healthPos;
+    if (envMarker) envMarker.style.left = envPos;
+    if (healthMarkerBottom) healthMarkerBottom.style.left = healthPos;
+    if (envMarkerBottom) envMarkerBottom.style.left = envPos;
+  } else {
+    if (healthMarker) healthMarker.style.left = "50%";
+    if (envMarker) envMarker.style.left = "50%";
+    if (healthBand) healthBand.style.setProperty("--pct", healthPct);
+    if (envBand) envBand.style.setProperty("--pct", envPct);
+  }
 
   const showMarkers = totals.answered > 0;
-  if (healthMarker) healthMarker.style.left = healthPos;
-  if (envMarker) envMarker.style.left = envPos;
-  if (healthMarkerBottom) healthMarkerBottom.style.left = healthPos;
-  if (envMarkerBottom) envMarkerBottom.style.left = envPos;
   if (healthMarker) healthMarker.style.opacity = showMarkers ? "1" : "0";
   if (envMarker) envMarker.style.opacity = showMarkers ? "1" : "0";
   if (healthMarkerBottom) healthMarkerBottom.style.opacity = showMarkers ? "1" : "0";
@@ -1252,6 +1265,13 @@ function renderAdviceIfComplete() {
     }
   }
 
+  const adviceOverrides = {
+    7: "Fish and shellfish—or bean dishes, extra-firm tofu, soy milk, or other non-animal protein source",
+    8: "Fat-free or low-fat dairy products—or calcium-fortified soy milk",
+    10: "Chicken, turkey, eggs—or such protein sources as soy milk, beans, extra-firm tofu, and nuts",
+    13: "White bread, white rice, white pasta, white potatoes—switch to whole grain versions"
+  };
+
   moreList.sort((a,b) => a.health - b.health || a.id - b.id);
 
   const perfect = DATA.every(q => {
@@ -1296,14 +1316,29 @@ function renderAdviceIfComplete() {
   if (moreList.length === 0) {
     html.push(`<p class="muted">No “eat more” flags based on your answers.</p>`);
   } else {
-    html.push(renderAdviceList(moreList));
+    const moreItems = moreList.map(item => ({
+      ...item,
+      text: adviceOverrides[item.id] || item.text
+    }));
+    html.push(renderAdviceList(moreItems));
+  }
+
+  const veganSupplementNote = [5, 6, 7, 8, 9, 10].every((qid) => {
+    return state.answers[qid] === "Less than once per week";
+  });
+  if (veganSupplementNote) {
+    html.push(`<p>If you are a vegan, be sure to take a daily supplement with vitamin B12 or eat a B12-fortified cereal or other food.</p>`);
   }
 
   html.push(`<h3>And less of these foods:</h3>`);
   if (lessList.length === 0) {
     html.push(`<p class="muted">No “eat less” flags based on your answers.</p>`);
   } else {
-    html.push(renderAdviceList(lessList));
+    const lessItems = lessList.map(item => ({
+      ...item,
+      text: adviceOverrides[item.id] || item.text
+    }));
+    html.push(renderAdviceList(lessItems));
   }
 
   box.innerHTML = html.join("\n");
