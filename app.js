@@ -474,7 +474,7 @@ const DATA = [
   },
   {
     "id": 14,
-    "title": "High-sugar drinks",
+    "title": "High-sugar drinks (soda pop, energy drinks, fruit drinks and juices, sports drinks)",
     "options": [
       {
         "key": "Less than once per week",
