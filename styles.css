@@ -481,46 +481,58 @@ h2, h3{
   font-size: 14px;
   color: var(--muted);
 }
-/* === LAYOUT: center questions in the VIEWPORT, scoreboard on right === */
+/* === DESKTOP LAYOUT: centered questions, right-fill scoreboard === */
 .layout{
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(320px, 30vw, 540px);
-  gap: 40px;
-  align-items: start;
+  /* use viewport math so the questions rail is centered on the screen */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-left: 24px;
+  padding-right: 24px;
 
-  /* kill the 100vw / negative margin hack */
-  width: 100%;
-  max-width: var(--maxw, 1280px);
-  margin-left: auto;
-  margin-right: auto;
+  --qmax: 720px;
+  --gap: 32px;
+  --left-space: max(0px, calc((100vw - 48px - var(--qmax)) / 2));
+  --right-space: max(0px, calc(var(--left-space) - var(--gap)));
+
+  display: grid;
+  align-items: start;
+  gap: 0;
+
+  /* centered questions + explicit right-side scoreboard track */
+  grid-template-columns:
+    var(--left-space)
+    minmax(0, var(--qmax))
+    var(--gap)
+    var(--right-space);
 }
 
 .layout__main{
+  grid-column: 2;
+  width: 100%;
+  max-width: 720px;   /* matches qcard/intropanel max */
+  margin: 0 auto;
+  justify-self: center;
+
   background: rgba(255,255,255,0.55);
   border: 2px solid rgba(17,24,39,0.25);
   border-radius: 24px;
   padding: 14px;
-
-  /* IMPORTANT: removes Chrome/GPU glitch + sticky weirdness */
   backdrop-filter: none;
 
-  width: 100%;
-  max-width: 980px;
-  margin: 0 auto;
-  justify-self: center;
-
-  /* kill centering transforms */
   position: static;
   left: auto;
   transform: none;
 }
 
 .layout__aside{
+  grid-column: 4;
+  justify-self: stretch;
+  width: 100%;
+  min-width: 0;
+
   position: sticky;
   top: 16px;
   align-self: start;
-  width: clamp(320px, 30vw, 540px);
-  justify-self: end;
 }
 .scoreboard-toggle{
   --toggle-inset: 16px;
@@ -831,6 +843,7 @@ h2, h3{
   justify-content:center;
   width: 100%;
   margin: 14px 0 -6px;
+  overflow: hidden;
 }
 .advice-wrap{
   margin-top: 16px;
@@ -846,6 +859,25 @@ h2, h3{
   fill: var(--text);
   text-transform: uppercase;
   letter-spacing: -0.01em;
+}
+@media (max-width: 1240px){
+  .advice-title__svg{
+    transform: scale(1.2);
+    transform-origin: center bottom;
+    height: clamp(72px, 10vw, 120px);
+  }
+  .advice-title__svg text{
+    font-size: clamp(30px, 5.2vw, 48px);
+  }
+}
+@media (max-width: 720px){
+  .advice-title__svg{
+    transform: scale(1.45);
+    height: 84px;
+  }
+  .advice-title__svg text{
+    font-size: 36px;
+  }
 }
 
 .footer{
@@ -910,7 +942,7 @@ h2, h3{
   margin: 6px 0 0 18px;
 }
 
-@media (max-width: 1024px){
+@media (max-width: 1240px){
   .layout{
     display:flex;
     flex-direction: column;
