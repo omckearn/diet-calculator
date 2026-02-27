@@ -942,7 +942,7 @@ h2, h3{
   margin: 6px 0 0 18px;
 }
 
-@media (max-width: 1240px){
+@media (max-width: 1600px){
   .layout{
     display:flex;
     flex-direction: column;

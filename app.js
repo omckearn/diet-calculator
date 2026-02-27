@@ -1037,7 +1037,7 @@ function initScoreboardToggle() {
   const board = document.querySelector(".scoreboard");
   if (!toggle || !board) return;
 
-  const mql = window.matchMedia("(max-width: 1240px)");
+  const mql = window.matchMedia("(max-width: 1600px)");
   const KEY = "scoreboardState";
 
   const setCollapsed = (collapsed) => {
