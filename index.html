@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rate Your Diet for Health &amp; the Environment</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+    </header>
+
+    <section class="layout" aria-label="Diet questions and scores">
+      <div class="layout__main">
+        <section class="questions" aria-label="Diet questions">
+          <div class="intro-panel">
+            <p class="intro-note">Answer 16 quick questions about how often you eat certain foods to see how your diet affects your health and the environment.</p>
+            <p class="hover-hint">Select the 'MORE INFO' button for additional information about each food category.</p>
+            <button id="jumpNextUnanswered" class="btn btn--ghost jump-next" type="button" hidden>
+              Jump to next unanswered
+            </button>
+          </div>
+          <div id="questionsRoot"></div>
+        </section>
+      </div>
+
+      <aside class="layout__aside" aria-label="Scores summary">
+        <section class="scoreboard" aria-label="Scoreboard">
+          <button id="scoreboardToggle" class="btn btn--outline scoreboard-toggle" type="button" hidden>
+            ↗
+          </button>
+          <div class="scoreboard__row">
+            <div class="scorecard">
+              <div class="scorecard__label">Total Health Score</div>
+              <div class="scorecard__value" id="totalHealth">0</div>
+              <div class="scorecard__max">out of <span id="maxTotalHealth">32</span></div>
+              <div class="scorecard__note">Higher scores indicate healthier diets.</div>
+            </div>
+            <div class="legend__stack">
+              <div class="legend__title">Health Total</div>
+              <div class="band" role="img" aria-label="Health total scale">
+                <div class="band__seg band__seg--red">Low</div>
+                <div class="band__seg band__seg--yellow">Medium</div>
+                <div class="band__seg band__seg--green">High</div>
+                <div class="band__marker" id="healthMarker" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scoreboard__row">
+            <div class="scorecard">
+              <div class="scorecard__label">Total Environment Score</div>
+              <div class="scorecard__value" id="totalEnv">0.0</div>
+              <div class="scorecard__max">out of <span id="maxTotalEnv">32</span></div>
+              <div class="scorecard__note">Higher scores indicate lower environmental impact.</div>
+            </div>
+            <div class="legend__stack">
+              <div class="legend__title">Environment Total</div>
+              <div class="band" role="img" aria-label="Environment total scale">
+                <div class="band__seg band__seg--red">Low</div>
+                <div class="band__seg band__seg--yellow">Medium</div>
+                <div class="band__seg band__seg--green">High</div>
+                <div class="band__marker" id="envMarker" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="progressmeta">
+            <span class="progressmeta__count"><span id="answeredCount">0</span>/<span id="questionCount">16</span></span>
+            <span class="progressmeta__label">answered</span>
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <section class="advice-wrap" aria-label="Personalized advice">
+      <div class="advice-title" aria-hidden="true">
+        <svg class="advice-title__svg" viewBox="0 0 1200 180" focusable="false">
+          <path id="adviceArcPath" d="M 40 140 Q 600 20 1160 140" fill="none"></path>
+          <text>
+            <textPath href="#adviceArcPath" startOffset="50%" text-anchor="middle">
+              Personalized Feedback
+            </textPath>
+          </text>
+        </svg>
+      </div>
+      <div class="advice" aria-label="Personalized advice">
+        <h2 class="sr-only">Personalized Feedback</h2>
+        <p id="adviceIntro" class="advice__intro"></p>
+        <div id="adviceContent" class="advice__content" hidden></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>Developed by the National Food Museum</div>
+      <div>This tool is for educational purposes only and is not intended as medical or dietary advice.</div>
+      <button id="retakeExperiment" class="btn btn--outline retake-btn" type="button" hidden>
+        Retake quiz
+      </button>
+    </footer>
+  </main>
+  <div id="hoverTooltip" class="hover-tooltip" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
