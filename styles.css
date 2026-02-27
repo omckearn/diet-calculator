@@ -713,7 +713,8 @@ h2, h3{
   border-radius: 12px;
   padding: 6px 8px;
   min-height: 36px;
-  display:flex;
+  display: inline-flex;
+  align-self: flex-start;
   align-items:center;
   gap: 10px;
   width: fit-content;
@@ -950,9 +951,6 @@ h2, h3{
     grid-template-columns: 1fr;
     align-items: stretch;
   }
-  .choice{
-    width: 100%;
-  }
   .scorecard{
     padding: 12px;
   }
@@ -981,8 +979,12 @@ h2, h3{
   .scoreboard--collapsed .legend__title{
     display:none;
   }
-  .scoreboard-toggle{
-    display: inline-flex;
+  /* Ensure the toggle can actually render when JS sets hidden=false */
+  #scoreboardToggle.scoreboard-toggle{
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
   }
 }
 
