@@ -560,13 +560,6 @@ h2, h3{
   top: 16px;
   align-self: start;
 }
-.is-embedded-fixed{
-  will-change: transform;
-}
-.embedded-sticky-spacer{
-  width: 100%;
-  display: none;
-}
 .scoreboard-toggle{
   --toggle-inset: 16px;
   position: absolute;
