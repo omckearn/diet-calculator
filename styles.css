@@ -25,11 +25,7 @@
 }
 
 *{ box-sizing:border-box; }
-html,body{
-  height:auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+html,body{ height:100%; }
 body{
   margin:0;
   font-family: "Source Sans 3", "Helvetica Neue", Helvetica, sans-serif;
@@ -40,7 +36,7 @@ body{
 }
 
 .container{
-  max-width:min(var(--maxw), 100%);
+  max-width:var(--maxw);
   margin:0 auto;
   padding:28px 28px 48px;
 }
@@ -49,19 +45,13 @@ body{
   position: relative;
   margin: 0;
   padding: 0;
-  width: 100%;
-  max-width: 100%;
-  margin-left: 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   background: transparent;
-}
-.embedded .header,
-.embedded .layout{
-  width:100%;
-  margin-left:0;
 }
 .header__top{
   display:flex;
@@ -316,8 +306,7 @@ h2, h3{
   box-shadow: var(--shadow);
   width: 100%;
   max-width: 100%;
-  position: sticky;
-  top: 20px;
+  position: relative;
 }
 .scoreboard__row{
   display:grid;
@@ -379,6 +368,14 @@ h2, h3{
   min-width: 160px;
   gap: 4px;
   font-weight: 700;
+}
+.scoreboard__actions{
+  display:none;
+  justify-content:center;
+  margin-top: 10px;
+  width: 100%;
+  grid-column: 1 / -1;
+  justify-self: stretch;
 }
 
 .legend__title{
@@ -520,21 +517,31 @@ h2, h3{
 }
 /* === DESKTOP LAYOUT: centered questions, right-fill scoreboard === */
 .layout{
-  width: 100%;
-  max-width: 100%;
-  margin-left: 0;
+  /* use viewport math so the questions rail is centered on the screen */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   padding-left: 24px;
   padding-right: 24px;
 
+  --qmax: 720px;
+  --gap: 32px;
+  --left-space: max(0px, calc((100vw - 48px - var(--qmax)) / 2));
+  --right-space: max(0px, calc(var(--left-space) - var(--gap)));
+
   display: grid;
   align-items: start;
-  gap: 32px;
-  grid-template-columns: minmax(0, 720px) minmax(280px, 1fr);
-  justify-content: center;
+  gap: 0;
+
+  /* centered questions + explicit right-side scoreboard track */
+  grid-template-columns:
+    var(--left-space)
+    minmax(0, var(--qmax))
+    var(--gap)
+    var(--right-space);
 }
 
 .layout__main{
-  grid-column: 1;
+  grid-column: 2;
   width: 100%;
   max-width: 720px;   /* matches qcard/intropanel max */
   margin: 0 auto;
@@ -552,7 +559,7 @@ h2, h3{
 }
 
 .layout__aside{
-  grid-column: 2;
+  grid-column: 4;
   justify-self: stretch;
   width: 100%;
   min-width: 0;
@@ -561,42 +568,25 @@ h2, h3{
   top: 16px;
   align-self: start;
 }
-.embedded .layout__aside{
-  position: static;
-  top: auto;
-}
-.embedded .scoreboard{
-  position: fixed;
-  right: 24px;
-  top: 120px;
-  width: min(360px, calc(100% - 48px));
-  z-index: 30;
-}
-.scoreboard,
-.header,
-.question-card{
-  transform: translateZ(0);
-  will-change: transform;
-}
 .scoreboard-toggle{
-  --toggle-inset: 16px;
-  position: absolute;
-  top: calc(var(--toggle-inset) + 4px);
-  right: var(--toggle-inset);
-  width: 30px;
-  height: 30px;
-  padding: 0;
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  height: 32px;
+  padding: 0 14px;
   border-radius: 999px;
-  font-size: 16px;
+  font-size: 10px;
   font-weight: 800;
   line-height: 1;
-  letter-spacing: 0;
-  text-transform: none;
+  letter-spacing: .04em;
+  text-transform: uppercase;
   box-shadow: none;
-  display: none;
 }
 .layout__aside .scoreboard{
-  width: 100%;
+  position: static;
+  top: auto;
 }
 .layout__aside .progressmeta{
   min-width: 0;
@@ -991,12 +981,6 @@ h2, h3{
     flex-direction: column;
     align-items: center;
   }
-  .embedded .scoreboard{
-    left: 24px;
-    right: 24px;
-    top: 20px;
-    width: auto;
-  }
   .layout__aside{
     position: sticky;
     top: 0;
@@ -1060,18 +1044,17 @@ h2, h3{
   .scoreboard--collapsed .legend__title{
     display:none;
   }
-  /* Ensure the toggle can actually render when JS sets hidden=false */
-  #scoreboardToggle.scoreboard-toggle{
-    display: inline-flex !important;
-    align-items: center;
+  .scoreboard__actions{
+    display: flex;
     justify-content: center;
-    z-index: 9999;
+    width: 100%;
+    grid-column: 1 / -1;
   }
-}
-
-/* Ensure toggle stays hidden on wide screens (override .btn display) */
-.scoreboard-toggle{
-  display: none;
+  .scoreboard--collapsed .scoreboard__actions{
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+  }
 }
 @media (max-width: 720px){
   .qtitle__text{
@@ -1119,34 +1102,3 @@ h2, h3{
   }
 }
 
-/* === EMBEDDED (IFRAME) MODE OVERRIDES === */
-.embedded .header,
-.embedded .layout {
-  width:100% !important;
-  margin-left:0 !important;
-}
-
-/* If you have any 100vw sections elsewhere, neutralize them too */
-.embedded [style*="100vw"] {
-  max-width: 100% !important;
-}
-
-/* Disable GPU-heavy filter drop-shadows in embeds */
-.embedded .meter-svg,
-.embedded .meter-labels,
-.embedded .meter,
-.embedded svg {
-  filter: none !important;
-}
-
-/* Avoid sticky repaint storms inside iframes (stable default) */
-.embedded .sidebar {
-  position: static !important;
-  top: auto !important;
-  height: auto !important;
-}
-
-/* Optional: if scoreboard has its own sticky/fixed rules, neutralize in embed */
-.embedded .scoreboard {
-  position: static !important;
-}
