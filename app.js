@@ -1019,6 +1019,22 @@
       return null;
     }
 
+    function getStackedScoreboardOffset() {
+      if (!window.matchMedia("(max-width: 1600px)").matches) return 0;
+
+      const aside = document.querySelector(".layout__aside");
+      const board = document.querySelector(".scoreboard");
+      if (!aside || !board) return 0;
+
+      const asideStyle = window.getComputedStyle(aside);
+      if (asideStyle.position !== "sticky") return 0;
+
+      const boardRect = board.getBoundingClientRect();
+      if (boardRect.height <= 0) return 0;
+
+      return Math.ceil(boardRect.height);
+    }
+
     function initJumpButton() {
       const button = document.getElementById("jumpNextUnanswered");
       if (!button) return;
@@ -1028,8 +1044,10 @@
         if (!nextId) return;
         const card = document.querySelector(`.qcard[data-qid="${nextId}"]`);
         if (card) {
-          const y = card.getBoundingClientRect().top + window.pageYOffset - 12;
-          window.scrollTo({ top: y, behavior: "smooth" });
+          const scoreboardOffset = getStackedScoreboardOffset();
+          const topPadding = scoreboardOffset > 0 ? scoreboardOffset + 16 : 12;
+          const y = card.getBoundingClientRect().top + window.pageYOffset - topPadding;
+          window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
         }
       });
     }
@@ -1409,4 +1427,3 @@
     initRetakeButton();
     initScoreboardToggle();
     initScorecardHeightEqualizer();
-
