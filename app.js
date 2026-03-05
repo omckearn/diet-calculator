@@ -1377,3 +1377,33 @@ initAdviceHoverTooltips();
 initJumpButton();
 initRetakeButton();
 initScoreboardToggle();
+
+// === IFRAME EMBED: send height to parent so Elementor can auto-resize ===
+(function () {
+  if (window.top === window) return; // not in an iframe
+
+  function sendHeight() {
+    const de = document.documentElement;
+    const b = document.body;
+    const height = Math.max(
+      de ? de.scrollHeight : 0,
+      b ? b.scrollHeight : 0,
+      de ? de.offsetHeight : 0,
+      b ? b.offsetHeight : 0
+    );
+    window.parent.postMessage({ type: "dietFrameHeight", height }, "*");
+  }
+
+  // Keep height updated when layout/content changes
+  if ("ResizeObserver" in window) {
+    const ro = new ResizeObserver(() => sendHeight());
+    ro.observe(document.documentElement);
+  }
+
+  window.addEventListener("load", sendHeight, { once: true });
+  window.addEventListener("resize", sendHeight);
+
+  // extra pings for late-loading fonts/assets
+  setTimeout(sendHeight, 250);
+  setTimeout(sendHeight, 1000);
+})();

@@ -1118,3 +1118,35 @@ h2, h3{
     line-height: 1;
   }
 }
+
+/* === EMBEDDED (IFRAME) MODE OVERRIDES === */
+.embedded .header,
+.embedded .layout {
+  width:100% !important;
+  margin-left:0 !important;
+}
+
+/* If you have any 100vw sections elsewhere, neutralize them too */
+.embedded [style*="100vw"] {
+  max-width: 100% !important;
+}
+
+/* Disable GPU-heavy filter drop-shadows in embeds */
+.embedded .meter-svg,
+.embedded .meter-labels,
+.embedded .meter,
+.embedded svg {
+  filter: none !important;
+}
+
+/* Avoid sticky repaint storms inside iframes (stable default) */
+.embedded .sidebar {
+  position: static !important;
+  top: auto !important;
+  height: auto !important;
+}
+
+/* Optional: if scoreboard has its own sticky/fixed rules, neutralize in embed */
+.embedded .scoreboard {
+  position: static !important;
+}
