@@ -26,7 +26,8 @@
 
 *{ box-sizing:border-box; }
 html,body{
-  height:100%;
+  height:auto;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 body{
@@ -56,6 +57,11 @@ body{
   align-items: center;
   text-align: center;
   background: transparent;
+}
+.embedded .header,
+.embedded .layout{
+  width:100%;
+  margin-left:0;
 }
 .header__top{
   display:flex;
@@ -310,7 +316,8 @@ h2, h3{
   box-shadow: var(--shadow);
   width: 100%;
   max-width: 100%;
-  position: relative;
+  position: sticky;
+  top: 20px;
 }
 .scoreboard__row{
   display:grid;
@@ -554,6 +561,23 @@ h2, h3{
   top: 16px;
   align-self: start;
 }
+.embedded .layout__aside{
+  position: static;
+  top: auto;
+}
+.embedded .scoreboard{
+  position: fixed;
+  right: 24px;
+  top: 120px;
+  width: min(360px, calc(100% - 48px));
+  z-index: 30;
+}
+.scoreboard,
+.header,
+.question-card{
+  transform: translateZ(0);
+  will-change: transform;
+}
 .scoreboard-toggle{
   --toggle-inset: 16px;
   position: absolute;
@@ -572,8 +596,7 @@ h2, h3{
   display: none;
 }
 .layout__aside .scoreboard{
-  position: static;
-  top: auto;
+  width: 100%;
 }
 .layout__aside .progressmeta{
   min-width: 0;
@@ -967,6 +990,12 @@ h2, h3{
     display:flex;
     flex-direction: column;
     align-items: center;
+  }
+  .embedded .scoreboard{
+    left: 24px;
+    right: 24px;
+    top: 20px;
+    width: auto;
   }
   .layout__aside{
     position: sticky;

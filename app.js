@@ -1,3 +1,6 @@
+const EMBEDDED = window.self !== window.top;
+document.documentElement.classList.toggle("embedded", EMBEDDED);
+
 /* Auto-generated from CSV.
    Health: direct from 'Health score' (0/1/2)
    Environment: direct from 'Environmental impact (New formula)' (no conversion)
